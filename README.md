@@ -89,7 +89,7 @@ ga-cli --task SumVectorGA --objective minimization --chromosome-length 1000 --po
 ga-cli --task DiscoverPhraseGA --population-size 200 --nr-max-gen 1500 --patience 0
 95 letras ^ 74 caracteres = 2.246709e+146 soluções
 
-ga-cli --task OptimizeRoute --population-size 200 --nr-max-gen 1500 --patience 0
+ga-cli --task  OptimizeRoute --objective minimization --population-size 200 --nr-max-gen 1500 --patience 10
 
 ### Saída do Algoritmo
 

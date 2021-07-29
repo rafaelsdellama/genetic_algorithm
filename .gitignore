@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 Generations.png
 results.csv
+/Untitled.ipynb
+/log.txt

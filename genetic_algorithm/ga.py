@@ -399,30 +399,31 @@ class GA:
         self._population_statistic()
         self._print_population_info(self.new_pop, 0)
 
-        best_fitness = 0
+        best_fitness = self.new_pop.bestFitness
         count_patience = 0
 
-        compare_op = partial(ge) if self.objective == 'maximization' else partial(le)
+        compare_op_obj = partial(ge) if self.objective == 'maximization' else partial(le)
+        compare_op_best = partial(gt) if self.objective == 'maximization' else partial(lt)
 
         for gen in range(1, self.nr_max_gen + 1):
             self._generating_new_population()
             self._population_statistic()
             self._print_population_info(self.new_pop, gen)
 
-            if self.new_pop.bestFitness > best_fitness:
+            if compare_op_best(self.new_pop.bestFitness, best_fitness):
                 best_fitness = self.new_pop.bestFitness
                 count_patience = 0
             else:
                 count_patience += 1
 
             if self.objective_fitness is not None:
-                if compare_op(self.new_pop.bestFitness, self.objective_fitness):
+                if compare_op_obj(self.new_pop.bestFitness, self.objective_fitness):
                     self.logger.info(f"Stop because found the objective fitness {self.objective_fitness}")
                     break
 
             if self.patience > 0:
                 if count_patience >= self.patience:
-                    self.logger.info("Stop because patience limit")
+                    self.logger.info(f"Stop because patience limit")
                     break
 
         self.logger.info(f"Best solution found: {self._statistic[-1]['best_indiv']}")
